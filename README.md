@@ -1,10 +1,9 @@
-# Android精准计步开发
- 亲测在小米.魅族.华为上可用
+# Entwicklung der Android-Präzisionsschrittzählung
+
  <div  align="center">    
 
 </div>
 
-#### 下载体验
 
 
 
@@ -15,10 +14,10 @@
 
  * [finnfu](https://github.com/finnfu/stepcount/tree/master/demo%E4%BB%A5%E5%8F%8A%E7%AE%97%E6%B3%95%E6%96%87%E6%A1%A3)
 
-# 1.需要在AndroidManifest.xml中添加权限
+# 1. Sie müssen Berechtigungen .xml AndroidManifest hinzufügen
 
 ```xml
-    <!--计歩需要的权限 need Permission-->
+    <!-- need Permission-->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-feature android:name="android.hardware.sensor.accelerometer" />
@@ -32,11 +31,11 @@
         android:required="true" />
 
 ```
-# 2.检测手机是否支持计歩 test
+# 2. test
 
 ```java
  /**
-     * 判断该设备是否支持计歩 ob es unterstuzen
+     *  ob es unterstuzen
      *
      * @param context
      * @return
@@ -61,7 +60,7 @@
     private Messenger messenger;
 
     /**
-     * 开启计步服务
+     * Aktivieren Sie den Schrittzählerdienst
      */
     private void setupService() {
         Intent intent = new Intent(this, StepService.class);
@@ -71,7 +70,8 @@
 
     }
     /**
-     * 从service服务中拿到步数
+     * brufen der Anzahl der Schritte vom Servicedienst
+     
      *
      * @param msg
      * @return
@@ -97,6 +97,10 @@
          * 在建立起于Service的连接时会调用该方法，目前Android是通过IBind机制实现与服务的连接。
          * @param name 实际所连接到的Service组件名称
          * @param service 服务的通信信道的IBind，可以通过Service访问对应服务
+        Diese Methode wird aufgerufen, wenn eine Verbindung zu einem Dienst hergestellt wird und Android derzeit die Verbindung zum Dienst über den IBind-Mechanismus implementiert.
+         * @param Name Der Name der Dienstkomponente, mit der sie tatsächlich verbunden ist
+         * IBind des Kommunikationskanals des @param Service-Dienstes, und der entsprechende Dienst kann über den Dienst aufgerufen werden
+         
          */
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -115,6 +119,10 @@
          * 这种情况经常发生在Service所在的进程崩溃或者被Kill的时候调用，
          * 此方法不会移除与Service的连接，当服务重新启动的时候仍然会调用 onServiceConnected()。
          * @param name 丢失连接的组件名称
+        Diese Methode wird aufgerufen, wenn die Verbindung zum Dienst unterbrochen wird.
+         * Dies geschieht häufig, wenn der Prozess, in dem sich der Dienst befindet, abstürzt oder von Kill aufgerufen wird.
+         * Diese Methode entfernt die Verbindung zum Dienst nicht und ruft weiterhin ServiceConnected() auf, wenn der Dienst neu gestartet wird.
+         * @param Name Der Name der Komponente, die die Verbindung verloren hat
          */
         @Override
         public void onServiceDisconnected(ComponentName name) {
